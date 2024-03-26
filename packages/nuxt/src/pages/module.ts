@@ -68,6 +68,7 @@ export default defineNuxtModule({
     })
 
     nuxt.hooks.hook('builder:watch', async (event, relativePath) => {
+      relativePath = relative(nuxt.options.srcDir, resolve(nuxt.options.srcDir, relativePath))
       const path = resolve(nuxt.options.srcDir, relativePath)
       if (restartPaths.some(p => p === path || path.startsWith(p + '/'))) {
         const newSetting = await isPagesEnabled()
@@ -199,6 +200,7 @@ export default defineNuxtModule({
     })
 
     nuxt.hook('builder:watch', async (event, relativePath) => {
+      relativePath = relative(nuxt.options.srcDir, resolve(nuxt.options.srcDir, relativePath))
       if (event === 'change') { return }
 
       const path = resolve(nuxt.options.srcDir, relativePath)
@@ -302,6 +304,7 @@ export default defineNuxtModule({
       }
 
       nuxt.hook('builder:watch', async (event, relativePath) => {
+        relativePath = relative(nuxt.options.srcDir, resolve(nuxt.options.srcDir, relativePath))
         const path = join(nuxt.options.srcDir, relativePath)
         if (!(path in pageToGlobMap)) { return }
         if (event === 'unlink') {

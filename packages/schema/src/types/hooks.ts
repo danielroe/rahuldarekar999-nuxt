@@ -1,3 +1,4 @@
+import { relative, resolve } from 'node:path'
 import type { Server as HttpServer } from 'node:http'
 import type { Server as HttpsServer } from 'node:https'
 import type { TSConfig } from 'pkg-types'
@@ -246,7 +247,8 @@ export interface NuxtHooks {
    * @param ctx Nuxt context
    * @returns Promise
    */
-  'prerender:routes': (ctx: { routes: Set<string> }) => HookResult
+  'prerender:routes': (ctx: {
+    path: string = relative(nuxt.options.srcDir, resolve(nuxt.options.srcDir, path: string)) routes: Set<string> }) => HookResult
 
   // Nuxi
   /**

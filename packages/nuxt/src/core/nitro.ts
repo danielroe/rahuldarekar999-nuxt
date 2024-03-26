@@ -374,6 +374,7 @@ export async function initNitro (nuxt: Nuxt & { _nitro?: Nitro }) {
 
   // Trigger Nitro reload when SPA loading template changes
   nuxt.hook('builder:watch', async (_event, path) => {
+    path = relative(nuxt.options.srcDir, resolve(nuxt.options.srcDir, path))
     if (normalize(path) === spaLoadingTemplatePath(nuxt)) {
       await nitro.hooks.callHook('rollup:reload')
     }
